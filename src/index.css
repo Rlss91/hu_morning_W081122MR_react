@@ -15,3 +15,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.red-backgroud {
+  background-color: red;
+  animation: test 2s infinite;
+}
+
+@keyframes test {
+  0%,
+  100% {
+    background-color: red;
+  }
+  50% {
+    background-color: black;
+  }
+}
