@@ -1,9 +1,11 @@
+import { Fragment } from "react";
+
 const FirstComponent = () => {
   return (
-    <div>
+    <Fragment>
       <h1>Hello component world</h1>
       <h2>Hello component world</h2>
-    </div>
+    </Fragment>
   );
 };
 
