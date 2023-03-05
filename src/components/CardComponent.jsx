@@ -26,13 +26,13 @@ import {
 
 const CardComponent = ({ img, title, price, description }) => {
   return (
-    <Card sx={{ width: "20rem" }} square raised>
+    <Card square raised>
       <CardActionArea>
         <CardMedia component="img" image={img} />
       </CardActionArea>
-      <CardHeader title="main title" subheader="sub title"></CardHeader>
+      <CardHeader title={title} subheader={price}></CardHeader>
       <CardContent>
-        <Typography>description</Typography>
+        <Typography>{description}</Typography>
       </CardContent>
       <CardActions>
         <Button variant="text" color="primary">
