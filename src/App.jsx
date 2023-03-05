@@ -7,6 +7,7 @@ import ListComponent from "./components/ListComponent";
 import MuiNavbar from "./components/Navbar/MuiNavbar";
 import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./pages/HomePage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       {/* <FirstComponent /> */}
       {/* <ListComponent /> */}
       {/* <GridComponent /> */}
-      <HomePage />
+      {/* <HomePage /> */}
+      <RegisterPage />
     </Container>
   );
 }
