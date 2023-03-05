@@ -17,8 +17,8 @@ function App() {
       {/* <FirstComponent /> */}
       {/* <ListComponent /> */}
       {/* <GridComponent /> */}
-      {/* <HomePage /> */}
-      <RegisterPage />
+      <HomePage />
+      {/* <RegisterPage /> */}
     </Container>
   );
 }

@@ -8,6 +8,7 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
+import PropTypes from "prop-types";
 
 /*
     img
@@ -41,6 +42,13 @@ const CardComponent = ({ img, title, price, description }) => {
       </CardActions>
     </Card>
   );
+};
+
+CardComponent.propTypes = {
+  img: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default CardComponent;
