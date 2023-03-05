@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,9 +16,20 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme();
 
 const RegisterPage = () => {
+  const [inputState, setInputState] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
   const handleBtnClick = (ev) => {
     console.log(ev);
     console.log("clicked");
+  };
+  const handleInputChange = (ev) => {
+    let newInputState = JSON.parse(JSON.stringify(inputState));
+    newInputState[ev.target.id] = ev.target.value;
+    setInputState(newInputState);
   };
   return (
     <ThemeProvider theme={theme}>
@@ -48,6 +60,8 @@ const RegisterPage = () => {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  value={inputState.firstName}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -58,6 +72,8 @@ const RegisterPage = () => {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={inputState.lastName}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -68,6 +84,8 @@ const RegisterPage = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={inputState.email}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -79,6 +97,8 @@ const RegisterPage = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={inputState.password}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
