@@ -10,8 +10,21 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import Link from "@mui/icons-material/Link";
+import { NavLink } from "react-router-dom";
 
-const pages = ["Products", "Pricing", "Blog"];
+import ROUTES from "../../routes/ROUTES";
+
+const pages = [
+  {
+    label: "Home",
+    url: ROUTES.HOME,
+  },
+  {
+    label: "Register",
+    url: ROUTES.REGISTER,
+  },
+];
 
 const MuiNavbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -23,6 +36,7 @@ const MuiNavbar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -31,17 +45,16 @@ const MuiNavbar = () => {
           <Typography variant="h6" noWrap>
             LOGO
           </Typography>
-
           {/* main navbar */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+              <NavLink key={page.url} to={page.url}>
+                <Typography
+                  sx={{ my: 2, color: "white", display: "block", p: 2 }}
+                >
+                  {page.label}
+                </Typography>
+              </NavLink>
             ))}
           </Box>
           {/* hamburger with menu */}
@@ -79,8 +92,13 @@ const MuiNavbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                  key={"miniLinks" + page.url}
+                  onClick={handleCloseNavMenu}
+                >
+                  <NavLink to={page.url}>
+                    <Typography textAlign="center">{page.label}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
