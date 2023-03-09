@@ -1,10 +1,11 @@
 import { Box, Grid } from "@mui/material";
 import CardComponent from "../components/CardComponent";
+import ButtonComponent from "../components/ButtonComponent";
+import { useState } from "react";
 
 const initialCardsArr = [
   {
     id: 1,
-
     title: "nature 1",
     price: 112,
     description: `Here’s a gift to help bring a little more beauty to your life in September: An image of the world-famous Spirit Island at Maligne Lake in Alberta’s Jasper National Park, specially prepared to serve as a wallpaper or background image for your computer, tablet or mobile phone.
@@ -41,12 +42,22 @@ const initialCardsArr = [
 ];
 
 const HomePage = () => {
+  const [cardsArr, setCardsArr] = useState(initialCardsArr);
+  const handleDeleteFromInitialCardsArr = (id) => {
+    // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
+    // newCardsArr = newCardsArr.filter((item) => item.id != id);
+    // setCardsArr(newCardsArr);
+    setCardsArr((newCardsArr) => newCardsArr.filter((item) => item.id != id));
+  };
   return (
     <Box>
       <Grid container spacing={2}>
-        {initialCardsArr.map((item) => (
+        {cardsArr.map((item) => (
           <Grid item xs={4} key={item.id + Date.now()}>
-            <CardComponent {...item} />
+            <CardComponent
+              {...item}
+              onDelete={handleDeleteFromInitialCardsArr}
+            />
           </Grid>
         ))}
       </Grid>

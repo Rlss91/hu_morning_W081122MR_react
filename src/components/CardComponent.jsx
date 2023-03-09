@@ -25,7 +25,11 @@ import PropTypes from "prop-types";
     }
 */
 
-const CardComponent = ({ img, title, price, description }) => {
+const CardComponent = ({ img, title, price, description, id, onDelete }) => {
+  const handleDeleteBtnClick = () => {
+    console.log("id", id);
+    onDelete(id);
+  };
   return (
     <Card square raised>
       <CardActionArea>
@@ -39,12 +43,16 @@ const CardComponent = ({ img, title, price, description }) => {
         <Button variant="text" color="primary">
           Buy now
         </Button>
+        <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
+          Delete
+        </Button>
       </CardActions>
     </Card>
   );
 };
 
 CardComponent.propTypes = {
+  id: PropTypes.number,
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
