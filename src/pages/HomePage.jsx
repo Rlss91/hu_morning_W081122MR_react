@@ -4,7 +4,7 @@ import CardComponent from "../components/CardComponent";
 const initialCardsArr = [
   {
     id: 1,
-    img: "http://az837918.vo.msecnd.net/publishedimages/articles/1733/en-CA/images/1/free-download-this-stunning-alberta-scene-for-your-device-background-image-L-6.jpg",
+
     title: "nature 1",
     price: 112,
     description: `Here’s a gift to help bring a little more beauty to your life in September: An image of the world-famous Spirit Island at Maligne Lake in Alberta’s Jasper National Park, specially prepared to serve as a wallpaper or background image for your computer, tablet or mobile phone.
