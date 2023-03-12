@@ -49,11 +49,18 @@ const MuiNavbar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <NavLink key={page.url} to={page.url}>
-                <Typography
-                  sx={{ my: 2, color: "white", display: "block", p: 2 }}
-                >
-                  {page.label}
-                </Typography>
+                {({ isActive }) => (
+                  <Typography
+                    sx={{
+                      my: 2,
+                      color: `${isActive ? "red" : "white"}`,
+                      display: "block",
+                      p: 2,
+                    }}
+                  >
+                    {page.label}
+                  </Typography>
+                )}
               </NavLink>
             ))}
           </Box>
