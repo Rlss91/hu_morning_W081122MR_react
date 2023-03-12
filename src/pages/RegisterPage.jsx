@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import validateRegisterSchema from "../validation/registerValidation";
+
 const theme = createTheme();
 
 const RegisterPage = () => {
@@ -23,8 +25,14 @@ const RegisterPage = () => {
     password: "",
   });
   const handleBtnClick = (ev) => {
-    console.log(ev);
-    console.log("clicked");
+    // console.log(ev);
+    // console.log("clicked");
+    const joiResponse = validateRegisterSchema(inputState);
+    if (!joiResponse.error) {
+      //navigate to home page
+      return;
+    }
+    console.log(joiResponse.error.details);
   };
   const handleInputChange = (ev) => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
