@@ -104,7 +104,17 @@ const MuiNavbar = () => {
                   onClick={handleCloseNavMenu}
                 >
                   <NavLink to={page.url}>
-                    <Typography textAlign="center">{page.label}</Typography>
+                    {/* if the current page and the link is the same then it will change the color of the link */}
+                    {({ isActive }) => (
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          color: `${isActive ? "red" : ""}`,
+                        }}
+                      >
+                        {page.label}
+                      </Typography>
+                    )}
                   </NavLink>
                 </MenuItem>
               ))}
