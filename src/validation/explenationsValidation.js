@@ -29,12 +29,19 @@ const userSchema = Joi.object({
   password: Joi.string().pattern(new RegExp("^[A-Z][a-z]{0,}$")).messages({
     "string.pattern.base": "regex should be uppercase",
   }),
+  users: Joi.object()
+    .keys({
+      name: Joi.string().required(),
+      age: Joi.number(),
+    })
+    .required(),
 });
 
 const obj = {
   name: "a",
   age: "asdf",
   password: "123",
+  users: {},
 };
 
 const responseFromJoi = userSchema.validate(obj, { abortEarly: false });
