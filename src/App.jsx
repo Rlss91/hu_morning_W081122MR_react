@@ -1,20 +1,40 @@
-import { Container } from "@mui/material";
+import { useState } from "react";
+import { Container, ThemeProvider, createTheme, Switch } from "@mui/material";
 
 import "./App.css";
 import MuiNavbar from "./components/Navbar/MuiNavbar";
 import Router from "./routes/Router";
 
+const light = {
+  palette: {
+    mode: "light",
+  },
+};
+
+const dark = {
+  palette: {
+    mode: "dark",
+  },
+};
+
 function App() {
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const changeTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
   return (
-    <Container>
-      <header>
-        <MuiNavbar />
-      </header>
-      <main>
-        <Router />
-      </main>
-      <footer></footer>
-    </Container>
+    <ThemeProvider theme={isDarkTheme ? createTheme(dark) : createTheme(light)}>
+      <Container>
+        <header>
+          <Switch checked={isDarkTheme} onChange={changeTheme} />
+          <MuiNavbar />
+        </header>
+        <main>
+          <Router />
+        </main>
+        <footer></footer>
+      </Container>
+    </ThemeProvider>
   );
 }
 
