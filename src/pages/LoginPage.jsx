@@ -3,9 +3,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import Checkbox from "@mui/material/Checkbox";
+// import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -13,12 +13,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 import validateRegisterSchema from "../validation/registerValidation";
+import ROUTES from "../routes/ROUTES";
 
 const theme = createTheme();
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const [inputState, setInputState] = useState({
     firstName: "",
     lastName: "",
@@ -51,49 +53,10 @@ const RegisterPage = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign in
           </Typography>
           <Box component="div" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                  value={inputState.firstName}
-                  onChange={handleInputChange}
-                />
-                {inputsErrorsState.firstName && (
-                  <Alert severity="warning">
-                    {inputsErrorsState.firstName.map((item) => (
-                      <div key={"firstName-errors" + item}>{item}</div>
-                    ))}
-                  </Alert>
-                )}
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                  value={inputState.lastName}
-                  onChange={handleInputChange}
-                />
-                {inputsErrorsState.lastName && (
-                  <Alert severity="warning">
-                    {inputsErrorsState.lastName.map((item) => (
-                      <div key={"lastName-errors" + item}>{item}</div>
-                    ))}
-                  </Alert>
-                )}
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -133,14 +96,6 @@ const RegisterPage = () => {
                   </Alert>
                 )}
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
             </Grid>
             <Button
               fullWidth
@@ -148,12 +103,14 @@ const RegisterPage = () => {
               sx={{ mt: 3, mb: 2 }}
               onClick={handleBtnClick}
             >
-              Sign Up
+              Sign In
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                <Link to={ROUTES.REGISTER}>
+                  <Typography variant="body2">
+                    Did not have an account? Sign up
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>
@@ -163,4 +120,5 @@ const RegisterPage = () => {
     </ThemeProvider>
   );
 };
-export default RegisterPage;
+
+export default LoginPage;

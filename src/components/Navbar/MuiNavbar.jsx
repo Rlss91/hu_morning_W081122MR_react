@@ -24,6 +24,10 @@ const pages = [
     label: "Register",
     url: ROUTES.REGISTER,
   },
+  {
+    label: "Login",
+    url: ROUTES.LOGIN,
+  },
 ];
 
 const MuiNavbar = () => {
