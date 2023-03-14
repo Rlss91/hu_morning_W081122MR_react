@@ -12,7 +12,7 @@ const Router = () => {
       <Route path={ROUTES.FAKEHOME} element={<Navigate to={ROUTES.HOME} />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-      <Route path="/edit" element={<EditCardPage />} />
+      <Route path="/edit/:id" element={<EditCardPage />} />
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );

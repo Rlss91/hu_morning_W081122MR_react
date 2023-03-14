@@ -25,10 +25,21 @@ import PropTypes from "prop-types";
     }
 */
 
-const CardComponent = ({ img, title, price, description, id, onDelete }) => {
+const CardComponent = ({
+  img,
+  title,
+  price,
+  description,
+  id,
+  onDelete,
+  onEdit,
+}) => {
   const handleDeleteBtnClick = () => {
     console.log("id", id);
     onDelete(id);
+  };
+  const handleEditBtnClick = () => {
+    onEdit(id);
   };
   return (
     <Card square raised>
@@ -46,6 +57,9 @@ const CardComponent = ({ img, title, price, description, id, onDelete }) => {
         <Button variant="text" color="error" onClick={handleDeleteBtnClick}>
           Delete
         </Button>
+        <Button variant="text" color="warning" onClick={handleEditBtnClick}>
+          Edit
+        </Button>
       </CardActions>
     </Card>
   );
@@ -58,6 +72,7 @@ CardComponent.propTypes = {
   price: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
 };
 
 CardComponent.defaultProps = {

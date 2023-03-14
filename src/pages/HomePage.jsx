@@ -2,6 +2,7 @@ import { Box, Grid } from "@mui/material";
 import CardComponent from "../components/CardComponent";
 import ButtonComponent from "../components/ButtonComponent";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initialCardsArr = [
   {
@@ -43,11 +44,15 @@ const initialCardsArr = [
 
 const HomePage = () => {
   const [cardsArr, setCardsArr] = useState(initialCardsArr);
+  const navigate = useNavigate();
   const handleDeleteFromInitialCardsArr = (id) => {
     // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
     // newCardsArr = newCardsArr.filter((item) => item.id != id);
     // setCardsArr(newCardsArr);
     setCardsArr((newCardsArr) => newCardsArr.filter((item) => item.id != id));
+  };
+  const handleEditFromInitialCardsArr = (id) => {
+    navigate(`/edit/${id}`); //localhost:3000/edit/123213
   };
   return (
     <Box>
@@ -57,6 +62,7 @@ const HomePage = () => {
             <CardComponent
               {...item}
               onDelete={handleDeleteFromInitialCardsArr}
+              onEdit={handleEditFromInitialCardsArr}
             />
           </Grid>
         ))}
