@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Container, ThemeProvider, createTheme, Switch } from "@mui/material";
+import {
+  Container,
+  ThemeProvider,
+  createTheme,
+  Switch,
+  CssBaseline,
+} from "@mui/material";
 
 import "./App.css";
 import MuiNavbar from "./components/Navbar/MuiNavbar";
@@ -24,6 +30,7 @@ function App() {
   };
   return (
     <ThemeProvider theme={isDarkTheme ? createTheme(dark) : createTheme(light)}>
+      <CssBaseline />
       <Container>
         <header>
           <Switch checked={isDarkTheme} onChange={changeTheme} />
