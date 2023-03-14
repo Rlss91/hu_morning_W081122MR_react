@@ -2,34 +2,33 @@ import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import { Link, useNavigate } from "react-router-dom";
 
-import validateRegisterSchema from "../validation/registerValidation";
 import ROUTES from "../routes/ROUTES";
+import validateLoginSchema from "../validation/loginValidation";
 
-const RegisterPage = () => {
+const EditCardPage = () => {
   const [inputState, setInputState] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
   });
   const [inputsErrorsState, setInputsErrorsState] = useState({});
   const navigate = useNavigate();
+
   const handleBtnClick = (ev) => {
-    const joiResponse = validateRegisterSchema(inputState);
+    const joiResponse = validateLoginSchema(inputState);
     setInputsErrorsState(joiResponse);
+    console.log(joiResponse);
     if (!joiResponse) {
-      navigate(ROUTES.LOGIN);
+      //move to homepage
+      navigate(ROUTES.HOME);
     }
   };
   const handleInputChange = (ev) => {
@@ -48,52 +47,24 @@ const RegisterPage = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
+          <EditIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Edit card
         </Typography>
+        <Box
+          component="img"
+          sx={{
+            height: 233,
+            width: 350,
+            maxHeight: { xs: 233, md: 167 },
+            maxWidth: { xs: 350, md: 250 },
+          }}
+          alt="The house from the offer."
+          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+        />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                value={inputState.firstName}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState.firstName && (
-                <Alert severity="warning">
-                  {inputsErrorsState.firstName.map((item) => (
-                    <div key={"firstName-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
-                value={inputState.lastName}
-                onChange={handleInputChange}
-              />
-              {inputsErrorsState.lastName && (
-                <Alert severity="warning">
-                  {inputsErrorsState.lastName.map((item) => (
-                    <div key={"lastName-errors" + item}>{item}</div>
-                  ))}
-                </Alert>
-              )}
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 required
@@ -133,12 +104,6 @@ const RegisterPage = () => {
                 </Alert>
               )}
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           <Button
             fullWidth
@@ -146,12 +111,14 @@ const RegisterPage = () => {
             sx={{ mt: 3, mb: 2 }}
             onClick={handleBtnClick}
           >
-            Sign Up
+            Sign In
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
+              <Link to={ROUTES.REGISTER}>
+                <Typography variant="body2">
+                  Did not have an account? Sign up
+                </Typography>
               </Link>
             </Grid>
           </Grid>
@@ -160,4 +127,4 @@ const RegisterPage = () => {
     </Container>
   );
 };
-export default RegisterPage;
+export default EditCardPage;

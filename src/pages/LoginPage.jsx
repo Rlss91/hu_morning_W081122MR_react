@@ -27,7 +27,7 @@ const LoginPage = () => {
     console.log(joiResponse);
     if (!joiResponse) {
       //move to homepage
-      navigate("/");
+      navigate(ROUTES.HOME);
     }
   };
   const handleInputChange = (ev) => {
