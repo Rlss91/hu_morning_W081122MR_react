@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "@mui/icons-material/Link";
+import { Switch } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 import ROUTES from "../../routes/ROUTES";
@@ -30,7 +31,7 @@ const pages = [
   },
 ];
 
-const MuiNavbar = () => {
+const MuiNavbar = ({ isDarkTheme, onThemeChange }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -67,6 +68,7 @@ const MuiNavbar = () => {
                 )}
               </NavLink>
             ))}
+            <Switch checked={isDarkTheme} onChange={onThemeChange} />
           </Box>
           {/* hamburger with menu */}
           <Box
@@ -84,6 +86,7 @@ const MuiNavbar = () => {
             >
               <MenuIcon />
             </IconButton>
+            <Switch checked={isDarkTheme} onChange={onThemeChange} />
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}

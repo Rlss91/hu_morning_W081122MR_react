@@ -33,8 +33,7 @@ function App() {
       <CssBaseline />
       <Container>
         <header>
-          <Switch checked={isDarkTheme} onChange={changeTheme} />
-          <MuiNavbar />
+          <MuiNavbar isDarkTheme={isDarkTheme} onThemeChange={changeTheme} />
         </header>
         <main>
           <Router />
