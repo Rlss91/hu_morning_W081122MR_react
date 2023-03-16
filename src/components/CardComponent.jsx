@@ -22,9 +22,13 @@ import PropTypes from "prop-types";
         description:"Here’s a gift to help bring a little more beauty to your life in September: An image of the world-famous Spirit Island at Maligne Lake in Alberta’s Jasper National Park, specially prepared to serve as a wallpaper or background image for your computer, tablet or mobile phone.
         Use the links below to download the wallpaper in the appropriate size, and enjoy the scene all month long. We’ll create another beautiful Alberta image next month for you to enjoy.
         If you want to see Spirit Island and Jasper National Park under the stars yourself (don’t forget to check out the park’s Dark Sky Festival from Oct. 14 to 23), scroll down for more information."
+        id:1
+        onDelete:handleDeleteFromInitialCardsArr
+        onEdit:handleEditFromInitialCardsArr
     }
 */
 
+// const CardComponent = (props) => { - - - }
 const CardComponent = ({
   img,
   title,

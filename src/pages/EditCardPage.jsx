@@ -53,6 +53,15 @@ const initialCardsArr = [
 
 const EditCardPage = () => {
   const { id } = useParams();
+  /*
+    router: /edit/:id
+    url: /edit/magafaiim
+    params = {
+      id: "magafaiim"
+    }
+    const params = useParams()
+    const id = params.id
+  */
   const [inputState, setInputState] = useState(
     initialCardsArr.find((item) => item.id == id)
   );
