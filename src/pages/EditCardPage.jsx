@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -62,9 +62,7 @@ const EditCardPage = () => {
     const params = useParams()
     const id = params.id
   */
-  const [inputState, setInputState] = useState(
-    initialCardsArr.find((item) => item.id == id)
-  );
+  const [inputState, setInputState] = useState({});
   // const [inputState, setInputState] = useState({
   //   img: "",
   //   title: "",
@@ -81,6 +79,9 @@ const EditCardPage = () => {
     }
     const id = params.id
   */
+  useEffect(() => {
+    setInputState(initialCardsArr.find((item) => item.id == id));
+  }, [id]);
   const handleSaveBtnClick = (ev) => {
     const joiResponse = validateEditSchema(inputState);
     setInputsErrorsState(joiResponse);
@@ -227,6 +228,16 @@ const EditCardPage = () => {
               </Button>
             </Grid>
           </Grid>
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={() => {
+              navigate("/edit/2");
+            }}
+          >
+            edit 2
+          </Button>
           {/* <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to={ROUTES.REGISTER}>
