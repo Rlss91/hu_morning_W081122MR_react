@@ -82,20 +82,18 @@ const EditCardPage = () => {
     const id = params.id
   */
   useEffect(() => {
-    setTimeout(() => {
-      const errors = validateEditCardParamsSchema({ id });
-      if (errors) {
-        // there was errors = incorrect id
-        navigate("/");
-        return;
-      }
-      const card = initialCardsArr.find((item) => item.id == id);
-      if (!card) {
-        navigate("404");
-        return;
-      }
-      setInputState(card);
-    }, 10000);
+    const errors = validateEditCardParamsSchema({ id });
+    if (errors) {
+      // there was errors = incorrect id
+      navigate("/");
+      return;
+    }
+    const card = initialCardsArr.find((item) => item.id == id);
+    if (!card) {
+      navigate("404");
+      return;
+    }
+    setInputState(card);
   }, [id]);
   const handleSaveBtnClick = (ev) => {
     const joiResponse = validateEditSchema(inputState);
