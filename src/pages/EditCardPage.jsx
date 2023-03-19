@@ -11,7 +11,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ROUTES from "../routes/ROUTES";
-import validateEditSchema from "../validation/editValidation";
+import validateEditSchema, {
+  validateEditCardParamsSchema,
+} from "../validation/editValidation";
+import { CircularProgress } from "@mui/material";
 
 const initialCardsArr = [
   {
@@ -41,7 +44,7 @@ const initialCardsArr = [
         If you want to see Spirit Island and Jasper National Park under the stars yourself (don’t forget to check out the park’s Dark Sky Festival from Oct. 14 to 23), scroll down for more information.`,
   },
   {
-    id: 4,
+    id: 400,
     img: "http://az837918.vo.msecnd.net/publishedimages/articles/1733/en-CA/images/1/free-download-this-stunning-alberta-scene-for-your-device-background-image-L-6.jpg",
     title: "nature 4",
     price: 112,
@@ -62,7 +65,7 @@ const EditCardPage = () => {
     const params = useParams()
     const id = params.id
   */
-  const [inputState, setInputState] = useState({});
+  const [inputState, setInputState] = useState(null);
   // const [inputState, setInputState] = useState({
   //   img: "",
   //   title: "",
@@ -71,7 +74,6 @@ const EditCardPage = () => {
   // });
   const [inputsErrorsState, setInputsErrorsState] = useState({});
   const navigate = useNavigate();
-  console.log(id);
   /*
     const params = useParams();
     params = {
@@ -80,7 +82,20 @@ const EditCardPage = () => {
     const id = params.id
   */
   useEffect(() => {
-    setInputState(initialCardsArr.find((item) => item.id == id));
+    setTimeout(() => {
+      const errors = validateEditCardParamsSchema({ id });
+      if (errors) {
+        // there was errors = incorrect id
+        navigate("/");
+        return;
+      }
+      const card = initialCardsArr.find((item) => item.id == id);
+      if (!card) {
+        navigate("404");
+        return;
+      }
+      setInputState(card);
+    }, 10000);
   }, [id]);
   const handleSaveBtnClick = (ev) => {
     const joiResponse = validateEditSchema(inputState);
@@ -101,6 +116,11 @@ const EditCardPage = () => {
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
   };
+
+  if (!inputState) {
+    return <CircularProgress />;
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
