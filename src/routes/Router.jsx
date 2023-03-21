@@ -5,6 +5,7 @@ import ROUTES from "./ROUTES";
 import LoginPage from "../pages/LoginPage";
 import EditCardPage from "../pages/EditCardPage";
 import ReRenderPage from "../pages/ReRenderPage/ReRenderPage";
+import UseMemoPage from "../pages/ReRenderPage/UseMemoPage";
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path="/edit/:id" element={<EditCardPage />} />
       <Route path="/rrp" element={<ReRenderPage />} />
+      <Route path="/usememo" element={<UseMemoPage />} />
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );
