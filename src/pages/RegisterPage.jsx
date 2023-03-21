@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import validateRegisterSchema from "../validation/registerValidation";
 import ROUTES from "../routes/ROUTES";
@@ -23,13 +24,26 @@ const RegisterPage = () => {
     email: "",
     password: "",
   });
-  const [inputsErrorsState, setInputsErrorsState] = useState({});
+  const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
-  const handleBtnClick = (ev) => {
-    const joiResponse = validateRegisterSchema(inputState);
-    setInputsErrorsState(joiResponse);
-    if (!joiResponse) {
+  const handleBtnClick = async (ev) => {
+    try {
+      const joiResponse = validateRegisterSchema(inputState);
+      setInputsErrorsState(joiResponse);
+      if (joiResponse) {
+        return;
+      }
+      const { data } = await axios.post(
+        "http://localhost:8181/api/users/register",
+        {
+          name: inputState.firstName + " " + inputState.lastName,
+          email: inputState.email,
+          password: inputState.password,
+        }
+      );
       navigate(ROUTES.LOGIN);
+    } catch (err) {
+      console.log("error from axios", err.response.data);
     }
   };
   const handleInputChange = (ev) => {
@@ -67,7 +81,7 @@ const RegisterPage = () => {
                 value={inputState.firstName}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.firstName && (
+              {inputsErrorsState && inputsErrorsState.firstName && (
                 <Alert severity="warning">
                   {inputsErrorsState.firstName.map((item) => (
                     <div key={"firstName-errors" + item}>{item}</div>
@@ -86,7 +100,7 @@ const RegisterPage = () => {
                 value={inputState.lastName}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.lastName && (
+              {inputsErrorsState && inputsErrorsState.lastName && (
                 <Alert severity="warning">
                   {inputsErrorsState.lastName.map((item) => (
                     <div key={"lastName-errors" + item}>{item}</div>
@@ -105,7 +119,7 @@ const RegisterPage = () => {
                 value={inputState.email}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.email && (
+              {inputsErrorsState && inputsErrorsState.email && (
                 <Alert severity="warning">
                   {inputsErrorsState.email.map((item) => (
                     <div key={"email-errors" + item}>{item}</div>
@@ -125,7 +139,7 @@ const RegisterPage = () => {
                 value={inputState.password}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.password && (
+              {inputsErrorsState && inputsErrorsState.password && (
                 <Alert severity="warning">
                   {inputsErrorsState.password.map((item) => (
                     <div key={"password-errors" + item}>{item}</div>
