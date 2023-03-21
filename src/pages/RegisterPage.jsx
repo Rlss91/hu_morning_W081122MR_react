@@ -33,14 +33,11 @@ const RegisterPage = () => {
       if (joiResponse) {
         return;
       }
-      const { data } = await axios.post(
-        "http://localhost:8181/api/users/register",
-        {
-          name: inputState.firstName + " " + inputState.lastName,
-          email: inputState.email,
-          password: inputState.password,
-        }
-      );
+      await axios.post("/users/register", {
+        name: inputState.firstName + " " + inputState.lastName,
+        email: inputState.email,
+        password: inputState.password,
+      });
       navigate(ROUTES.LOGIN);
     } catch (err) {
       console.log("error from axios", err.response.data);

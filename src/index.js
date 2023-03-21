@@ -12,6 +12,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+/* axios */
+import axios from "axios";
+
+/* axios */
+axios.defaults.baseURL = "/api";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
