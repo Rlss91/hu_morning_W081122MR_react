@@ -5,6 +5,7 @@ import axios from "axios";
 
 import CardComponent from "../components/CardComponent";
 import ButtonComponent from "../components/ButtonComponent";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
   const [cardsArr, setCardsArr] = useState(null);
@@ -20,7 +21,11 @@ const HomePage = () => {
         console.log("data", data);
         setCardsArr(data);
       })
-      .catch((err) => console.log("err from axios", err));
+      .catch((err) => {
+        console.log("err from axios", err);
+
+        toast.error("Oops");
+      });
   }, []);
   const handleDeleteFromInitialCardsArr = async (id) => {
     // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
