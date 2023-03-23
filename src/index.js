@@ -18,6 +18,20 @@ import axios from "axios";
 /* axios */
 axios.defaults.baseURL = "/api";
 
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    /*
+      if the token exists in localStorage
+      this mean that the user logged in and
+      we want to send the token in the headers with each request
+      that was send
+    */
+    config.headers["x-auth-token"] = token;
+  }
+  return config; // send the new data
+});
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
