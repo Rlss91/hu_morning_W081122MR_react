@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import ROUTES from "../routes/ROUTES";
 import validateLoginSchema from "../validation/loginValidation";
@@ -18,23 +19,28 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  const [inputsErrorsState, setInputsErrorsState] = useState({});
+  const [inputsErrorsState, setInputsErrorsState] = useState(null);
   const navigate = useNavigate();
 
-  const handleBtnClick = (ev) => {
-    const joiResponse = validateLoginSchema(inputState);
-    setInputsErrorsState(joiResponse);
-    console.log(joiResponse);
-    if (!joiResponse) {
+  const handleBtnClick = async (ev) => {
+    try {
+      const joiResponse = validateLoginSchema(inputState);
+      setInputsErrorsState(joiResponse);
+      if (joiResponse) {
+        return;
+      }
+      const { data } = await axios.post("/users/login", inputState);
+      localStorage.setItem("token", data.token);
       //move to homepage
       navigate(ROUTES.HOME);
+    } catch (err) {
+      console.log("login error", err);
     }
   };
   const handleInputChange = (ev) => {
     let newInputState = JSON.parse(JSON.stringify(inputState));
     newInputState[ev.target.id] = ev.target.value;
     setInputState(newInputState);
-    console.log(inputState);
   };
   return (
     <Container component="main" maxWidth="xs">
@@ -65,7 +71,7 @@ const LoginPage = () => {
                 value={inputState.email}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.email && (
+              {inputsErrorsState && inputsErrorsState.email && (
                 <Alert severity="warning">
                   {inputsErrorsState.email.map((item) => (
                     <div key={"email-errors" + item}>{item}</div>
@@ -85,7 +91,7 @@ const LoginPage = () => {
                 value={inputState.password}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.password && (
+              {inputsErrorsState && inputsErrorsState.password && (
                 <Alert severity="warning">
                   {inputsErrorsState.password.map((item) => (
                     <div key={"password-errors" + item}>{item}</div>
