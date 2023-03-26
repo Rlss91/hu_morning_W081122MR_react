@@ -32,11 +32,10 @@ const HomePage = () => {
     // newCardsArr = newCardsArr.filter((item) => item.id != id);
     // setCardsArr(newCardsArr);
     try {
+      await axios.delete("/cards/" + id); // /cards/:id
       setCardsArr((newCardsArr) =>
         newCardsArr.filter((item) => item._id != id)
       );
-      await axios.delete("/cards/" + id);
-      ///cards/:id
     } catch (err) {
       console.log("error when deleting", err.response.data);
     }
