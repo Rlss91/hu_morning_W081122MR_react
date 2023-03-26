@@ -16,6 +16,8 @@ import validateEditSchema, {
   validateEditCardParamsSchema,
 } from "../validation/editValidation";
 import { CircularProgress } from "@mui/material";
+import atom from "../logo.svg";
+import { toast } from "react-toastify";
 
 const EditCardPage = () => {
   const { id } = useParams();
@@ -54,20 +56,44 @@ const EditCardPage = () => {
           return;
         }
         const { data } = await axios.get("/cards/card/" + id);
-        console.log("data", data);
-        // setInputState(card);
+        let newInputState = {
+          ...data,
+        };
+        if (data.image && data.image.url) {
+          newInputState.url = data.image.url;
+        } else {
+          newInputState.url = "";
+        }
+        if (data.image && data.image.alt) {
+          newInputState.alt = data.image.alt;
+        } else {
+          newInputState.alt = "";
+        }
+        delete newInputState.image;
+        delete newInputState.likes;
+        delete newInputState._id;
+        delete newInputState.user_id;
+        delete newInputState.bizNumber;
+        delete newInputState.createdAt;
+        setInputState(newInputState);
       } catch (err) {
         console.log("error from axios", err);
       }
     })();
   }, [id]);
-  const handleSaveBtnClick = (ev) => {
-    const joiResponse = validateEditSchema(inputState);
-    setInputsErrorsState(joiResponse);
-    console.log(joiResponse);
-    if (!joiResponse) {
-      //move to homepage
-      navigate(ROUTES.HOME);
+  const handleSaveBtnClick = async (ev) => {
+    try {
+      const joiResponse = validateEditSchema(inputState);
+      setInputsErrorsState(joiResponse);
+      console.log(joiResponse);
+      if (!joiResponse) {
+        //move to homepage
+        await axios.put("/cards/" + id, inputState);
+        navigate(ROUTES.HOME);
+      }
+    } catch (err) {
+      console.log("err", err);
+      toast.error("errrrrrrrrrrrrrrrror");
     }
   };
 
@@ -109,26 +135,25 @@ const EditCardPage = () => {
             maxHeight: { xs: 233, md: 167 },
             maxWidth: { xs: 350, md: 250 },
           }}
-          alt="The house from the offer."
-          src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+          alt={inputState.alt ? inputState.alt : ""}
+          src={inputState.url ? inputState.url : atom}
         />
         <Box component="div" noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                required
                 fullWidth
-                id="img"
-                label="Img"
-                name="img"
-                autoComplete="img"
-                value={inputState.img}
+                id="url"
+                label="Url"
+                name="url"
+                autoComplete="url"
+                value={inputState.url ? inputState.url : ""}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.img && (
+              {inputsErrorsState && inputsErrorsState.url && (
                 <Alert severity="warning">
-                  {inputsErrorsState.img.map((item) => (
-                    <div key={"img-errors" + item}>{item}</div>
+                  {inputsErrorsState.url.map((item) => (
+                    <div key={"url-errors" + item}>{item}</div>
                   ))}
                 </Alert>
               )}
@@ -144,7 +169,7 @@ const EditCardPage = () => {
                 value={inputState.title}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.title && (
+              {inputsErrorsState && inputsErrorsState.title && (
                 <Alert severity="warning">
                   {inputsErrorsState.title.map((item) => (
                     <div key={"title-errors" + item}>{item}</div>
@@ -156,18 +181,18 @@ const EditCardPage = () => {
               <TextField
                 required
                 fullWidth
-                name="price"
-                label="Price"
-                type="number"
-                id="price"
-                autoComplete="price"
-                value={inputState.price}
+                name="subTitle"
+                label="Sub title"
+                type="text"
+                id="subTitle"
+                autoComplete="subTitle"
+                value={inputState.subTitle}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.price && (
+              {inputsErrorsState && inputsErrorsState.subTitle && (
                 <Alert severity="warning">
-                  {inputsErrorsState.price.map((item) => (
-                    <div key={"price-errors" + item}>{item}</div>
+                  {inputsErrorsState.subTitle.map((item) => (
+                    <div key={"subTitle-errors" + item}>{item}</div>
                   ))}
                 </Alert>
               )}
@@ -183,7 +208,45 @@ const EditCardPage = () => {
                 value={inputState.description}
                 onChange={handleInputChange}
               />
-              {inputsErrorsState.description && (
+              {inputsErrorsState && inputsErrorsState.description && (
+                <Alert severity="warning">
+                  {inputsErrorsState.description.map((item) => (
+                    <div key={"description-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="address"
+                label="Address"
+                id="address"
+                autoComplete="address"
+                value={inputState.address}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.description && (
+                <Alert severity="warning">
+                  {inputsErrorsState.description.map((item) => (
+                    <div key={"description-errors" + item}>{item}</div>
+                  ))}
+                </Alert>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="phone"
+                label="Phone"
+                id="phone"
+                autoComplete="phone"
+                value={inputState.phone}
+                onChange={handleInputChange}
+              />
+              {inputsErrorsState && inputsErrorsState.description && (
                 <Alert severity="warning">
                   {inputsErrorsState.description.map((item) => (
                     <div key={"description-errors" + item}>{item}</div>
@@ -212,7 +275,7 @@ const EditCardPage = () => {
               </Button>
             </Grid>
           </Grid>
-          <Button
+          {/* <Button
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
@@ -221,7 +284,7 @@ const EditCardPage = () => {
             }}
           >
             edit 2
-          </Button>
+          </Button> */}
           {/* <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to={ROUTES.REGISTER}>

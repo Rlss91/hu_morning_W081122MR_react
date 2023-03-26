@@ -59,7 +59,7 @@ const HomePage = () => {
               title={item.title}
               subTitle={item.subTitle}
               description={item.description}
-              img={item.image.url}
+              img={item.image ? item.image.url : ""}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
             />
