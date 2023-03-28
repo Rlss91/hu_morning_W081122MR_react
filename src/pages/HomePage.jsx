@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 import CardComponent from "../components/CardComponent";
@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 const HomePage = () => {
   const [cardsArr, setCardsArr] = useState(null);
   const navigate = useNavigate();
+  let [searchParams, setSearchParams] = useSearchParams();
+  console.log("searchParams", searchParams);
   useEffect(() => {
     /*
       useEffect cant handle async ()=>{}
