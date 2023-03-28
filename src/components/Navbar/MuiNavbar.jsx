@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,9 +12,11 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "@mui/icons-material/Link";
+import { Switch } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 import ROUTES from "../../routes/ROUTES";
+import { darkThemeActions } from "../../store/darkTheme";
 
 const pages = [
   {
@@ -32,6 +35,10 @@ const pages = [
 
 const MuiNavbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const dispatch = useDispatch();
+  const isDarkTheme = useSelector(
+    (bigPie) => bigPie.darkThemeSlice.isDarkTheme
+  );
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,6 +46,10 @@ const MuiNavbar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const changeTheme = () => {
+    dispatch(darkThemeActions.changeTheme());
   };
 
   return (
@@ -67,6 +78,16 @@ const MuiNavbar = () => {
                 )}
               </NavLink>
             ))}
+            {/* <Switch checked={isDarkTheme} onChange={changeTheme} /> */}
+          </Box>
+          <Box
+            sx={{
+              my: 2,
+              p: 1,
+            }}
+          >
+            {isDarkTheme ? "Dark" : "Light"} Mode
+            <Switch checked={isDarkTheme} onChange={changeTheme} />
           </Box>
           {/* hamburger with menu */}
           <Box
