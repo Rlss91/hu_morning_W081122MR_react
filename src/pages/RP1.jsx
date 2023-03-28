@@ -10,7 +10,9 @@ const RP1 = () => {
     dispatch(counterActions.add1());
   };
 
-  const handleSub1 = () => {};
+  const handleSub1 = () => {
+    dispatch(counterActions.sub1());
+  };
 
   return (
     <Fragment>

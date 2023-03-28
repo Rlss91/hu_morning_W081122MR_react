@@ -1,7 +1,6 @@
+import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-const { Fragment } = require("react");
 
 const RP2 = () => {
   const counter = useSelector((bigState) => bigState.counterSlice.counter);
