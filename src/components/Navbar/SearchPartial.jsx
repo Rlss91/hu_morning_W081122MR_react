@@ -1,7 +1,9 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import ROUTES from "../../routes/ROUTES";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -47,12 +49,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchPartial = () => {
   const [searchInput, setSearchInput] = useState("");
+  const navigate = useNavigate();
   const handleSearchChange = (e) => {
     // console.log(e.target.value);
     setSearchInput(e.target.value);
   };
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    navigate(`${ROUTES.HOME}?filter=${searchInput}`);
   };
   return (
     <form onSubmit={handleSearchSubmit}>

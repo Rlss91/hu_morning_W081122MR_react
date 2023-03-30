@@ -9,16 +9,11 @@ import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
 
 const HomePage = () => {
+  const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
   const navigate = useNavigate();
   let qparams = useQueryParams();
-  console.log("qparams", qparams);
-  // let [searchParams, setSearchParams] = useSearchParams();
-  // console.log("searchParams", searchParams);
-  // for (const [key, value] of searchParams) {
-  //   console.log({ key: value });
-  //   console.log({ [key]: value });
-  // }
+
   useEffect(() => {
     /*
       useEffect cant handle async ()=>{}
@@ -28,7 +23,8 @@ const HomePage = () => {
       .get("/cards/cards")
       .then(({ data }) => {
         console.log("data", data);
-        setCardsArr(data);
+        // setCardsArr(data);
+        filterFunc(data);
       })
       .catch((err) => {
         console.log("err from axios", err);
@@ -36,6 +32,35 @@ const HomePage = () => {
         toast.error("Oops");
       });
   }, []);
+  const filterFunc = (data) => {
+    if (!originalCardsArr && !data) {
+      return;
+    }
+    let filter = "";
+    if (qparams.filter) {
+      filter = qparams.filter;
+    }
+    if (!originalCardsArr && data) {
+      /*
+        when component loaded and states not loaded
+      */
+      setOriginalCardsArr(data);
+      setCardsArr(data.filter((card) => card.title.startsWith(filter)));
+      return;
+    }
+    if (originalCardsArr) {
+      /*
+        when all loaded and states loaded
+      */
+      let newOriginalCardsArr = JSON.parse(JSON.stringify(originalCardsArr));
+      setCardsArr(
+        newOriginalCardsArr.filter((card) => card.title.startsWith(filter))
+      );
+    }
+  };
+  useEffect(() => {
+    filterFunc();
+  }, [qparams.filter]);
   const handleDeleteFromInitialCardsArr = async (id) => {
     // let newCardsArr = JSON.parse(JSON.stringify(cardsArr));
     // newCardsArr = newCardsArr.filter((item) => item.id != id);
