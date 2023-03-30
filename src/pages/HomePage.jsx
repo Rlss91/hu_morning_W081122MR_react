@@ -6,12 +6,19 @@ import axios from "axios";
 import CardComponent from "../components/CardComponent";
 import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
+import useQueryParams from "../hooks/useQueryParams";
 
 const HomePage = () => {
   const [cardsArr, setCardsArr] = useState(null);
   const navigate = useNavigate();
-  let [searchParams, setSearchParams] = useSearchParams();
-  console.log("searchParams", searchParams);
+  let qparams = useQueryParams();
+  console.log("qparams", qparams);
+  // let [searchParams, setSearchParams] = useSearchParams();
+  // console.log("searchParams", searchParams);
+  // for (const [key, value] of searchParams) {
+  //   console.log({ key: value });
+  //   console.log({ [key]: value });
+  // }
   useEffect(() => {
     /*
       useEffect cant handle async ()=>{}
