@@ -97,7 +97,7 @@ const HomePage = () => {
               img={item.image ? item.image.url : ""}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
-              canEdit={payload.biz || payload.isAdmin}
+              canEdit={payload && (payload.biz || payload.isAdmin)}
             />
           </Grid>
         ))}

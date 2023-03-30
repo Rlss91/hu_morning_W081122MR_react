@@ -3,12 +3,14 @@ import { authActions } from "../store/auth";
 import jwt_decode from "jwt-decode";
 const useLoggedIn = () => {
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
-  if (!token) {
-    return;
-  }
-  const payload = jwt_decode(token);
-  dispatch(authActions.login(payload));
+  return () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
+    const payload = jwt_decode(token);
+    dispatch(authActions.login(payload));
+  };
 };
 
 export default useLoggedIn;

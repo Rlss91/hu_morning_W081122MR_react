@@ -29,7 +29,11 @@ const dark = {
 };
 
 function App() {
-  useLoggedIn();
+  useLoggedIn()();
+  /*
+  const loggedIn = useLoggedIn()
+  loggedIn()
+  */
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
