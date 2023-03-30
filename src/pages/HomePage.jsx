@@ -7,12 +7,14 @@ import CardComponent from "../components/CardComponent";
 import ButtonComponent from "../components/ButtonComponent";
 import { toast } from "react-toastify";
 import useQueryParams from "../hooks/useQueryParams";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const [originalCardsArr, setOriginalCardsArr] = useState(null);
   const [cardsArr, setCardsArr] = useState(null);
   const navigate = useNavigate();
   let qparams = useQueryParams();
+  const payload = useSelector((bigPie) => bigPie.authSlice.payload);
 
   useEffect(() => {
     /*
@@ -95,6 +97,7 @@ const HomePage = () => {
               img={item.image ? item.image.url : ""}
               onDelete={handleDeleteFromInitialCardsArr}
               onEdit={handleEditFromInitialCardsArr}
+              canEdit={payload.biz || payload.isAdmin}
             />
           </Grid>
         ))}

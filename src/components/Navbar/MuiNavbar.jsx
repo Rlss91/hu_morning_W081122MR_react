@@ -18,12 +18,18 @@ import { NavLink } from "react-router-dom";
 import SearchPartial from "./SearchPartial";
 import ROUTES from "../../routes/ROUTES";
 import { darkThemeActions } from "../../store/darkTheme";
+import NavLinkComponent from "./NavLinkComponent";
 
+// access to all
 const pages = [
   {
     label: "Home",
     url: ROUTES.HOME,
   },
+];
+
+//not logged in users
+const notAuthPages = [
   {
     label: "Register",
     url: ROUTES.REGISTER,
@@ -34,7 +40,26 @@ const pages = [
   },
 ];
 
+//logged in users
+const authedPages = [
+  {
+    label: "Profile",
+    url: ROUTES.REGISTER,
+  },
+];
+
+//admin/biz pages
+const adminBizPages = [
+  {
+    label: "Create",
+    url: ROUTES.REGISTER,
+  },
+];
+
 const MuiNavbar = () => {
+  const isLoggedIn = useSelector(
+    (bigPieBigState) => bigPieBigState.authSlice.isLoggedIn
+  );
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const dispatch = useDispatch();
   const isDarkTheme = useSelector(
@@ -68,22 +93,15 @@ const MuiNavbar = () => {
           {/* main navbar */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <NavLink key={page.url} to={page.url}>
-                {({ isActive }) => (
-                  <Typography
-                    sx={{
-                      my: 2,
-                      display: "block",
-                      p: 2,
-                    }}
-                    color={isActive ? "error" : "info"}
-                  >
-                    {page.label}
-                  </Typography>
-                )}
-              </NavLink>
+              <NavLinkComponent key={page.url} {...page} />
             ))}
-            {/* <Switch checked={isDarkTheme} onChange={changeTheme} /> */}
+            {isLoggedIn
+              ? authedPages.map((page) => (
+                  <NavLinkComponent key={page.url} {...page} />
+                ))
+              : notAuthPages.map((page) => (
+                  <NavLinkComponent key={page.url} {...page} />
+                ))}
           </Box>
           <SearchPartial />
           <Box

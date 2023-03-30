@@ -14,6 +14,7 @@ import "./App.css";
 import MuiNavbar from "./components/Navbar/MuiNavbar";
 import Router from "./routes/Router";
 import { useSelector } from "react-redux";
+import useLoggedIn from "./hooks/useLoggedIn";
 
 const light = {
   palette: {
@@ -28,6 +29,7 @@ const dark = {
 };
 
 function App() {
+  useLoggedIn();
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
