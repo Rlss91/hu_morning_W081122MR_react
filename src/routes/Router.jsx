@@ -10,6 +10,7 @@ import RP1 from "../pages/RP1";
 import RP2 from "../pages/RP2";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ProfilePage from "../pages/ProfilePage";
+import SuperProtectedRoute from "../components/SuperProtectedRoute";
 
 const Router = () => {
   return (
@@ -18,10 +19,29 @@ const Router = () => {
       <Route path={ROUTES.FAKEHOME} element={<Navigate to={ROUTES.HOME} />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-      <Route path="/edit/:id" element={<EditCardPage />} />
+      <Route
+        path="/edit/:id"
+        element={
+          <SuperProtectedRoute
+            isAdmin={true}
+            isBiz={true}
+            element={<EditCardPage />}
+          />
+        }
+      />
       <Route
         path={ROUTES.PROFILE}
         element={<ProtectedRoute element={<ProfilePage />} />}
+      />
+      <Route
+        path="/createcard"
+        element={
+          <SuperProtectedRoute
+            isAdmin={false}
+            isBiz={true}
+            element={<h1>Create card</h1>}
+          />
+        }
       />
       <Route path="/rrp" element={<ReRenderPage />} />
       <Route path="/usememo" element={<UseMemoPage />} />
