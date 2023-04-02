@@ -30,22 +30,13 @@ const dark = {
 
 function App() {
   const loggedIn = useLoggedIn();
-  // useLoggedIn()();
   useEffect(() => {
     loggedIn();
   }, []);
 
-  /*
-  const loggedIn = useLoggedIn()
-  loggedIn()
-  */
   const isDarkTheme = useSelector(
     (bigPie) => bigPie.darkThemeSlice.isDarkTheme
   );
-  // const [isDarkTheme, setIsDarkTheme] = useState(false);
-  // const changeTheme = () => {
-  //   setIsDarkTheme(!isDarkTheme);
-  // };
   return (
     <ThemeProvider theme={isDarkTheme ? createTheme(dark) : createTheme(light)}>
       <CssBaseline />
