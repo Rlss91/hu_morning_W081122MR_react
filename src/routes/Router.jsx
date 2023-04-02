@@ -11,6 +11,9 @@ import RP2 from "../pages/RP2";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ProfilePage from "../pages/ProfilePage";
 import SuperProtectedRoute from "../components/SuperProtectedRoute";
+import LogoutPage from "../pages/LogoutPage";
+
+//element={<ProtectedRoute element={<LogoutPage />} />}
 
 const Router = () => {
   return (
@@ -19,6 +22,10 @@ const Router = () => {
       <Route path={ROUTES.FAKEHOME} element={<Navigate to={ROUTES.HOME} />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route
+        path={ROUTES.LOGOUT}
+        element={<ProtectedRoute element={<LogoutPage />} />}
+      />
       <Route
         path="/edit/:id"
         element={

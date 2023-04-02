@@ -4,6 +4,7 @@ const ROUTES = {
   REGISTER: "/register",
   LOGIN: "/login",
   PROFILE: "/profile",
+  LOGOUT: "/logout",
 };
 
 export default ROUTES;

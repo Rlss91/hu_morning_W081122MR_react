@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   ThemeProvider,
@@ -29,7 +29,12 @@ const dark = {
 };
 
 function App() {
-  useLoggedIn()();
+  const loggedIn = useLoggedIn();
+  // useLoggedIn()();
+  useEffect(() => {
+    loggedIn();
+  }, []);
+
   /*
   const loggedIn = useLoggedIn()
   loggedIn()

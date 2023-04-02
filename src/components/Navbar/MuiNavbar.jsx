@@ -19,6 +19,7 @@ import SearchPartial from "./SearchPartial";
 import ROUTES from "../../routes/ROUTES";
 import { darkThemeActions } from "../../store/darkTheme";
 import NavLinkComponent from "./NavLinkComponent";
+import { authActions } from "../../store/auth";
 
 // access to all
 const pages = [
@@ -44,7 +45,11 @@ const notAuthPages = [
 const authedPages = [
   {
     label: "Profile",
-    url: ROUTES.REGISTER,
+    url: ROUTES.PROFILE,
+  },
+  {
+    label: "Logout",
+    url: ROUTES.LOGOUT,
   },
 ];
 
@@ -78,6 +83,11 @@ const MuiNavbar = () => {
     dispatch(darkThemeActions.changeTheme());
   };
 
+  const logoutClick = () => {
+    localStorage.clear();
+    dispatch(authActions.logout());
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -96,9 +106,17 @@ const MuiNavbar = () => {
               <NavLinkComponent key={page.url} {...page} />
             ))}
             {isLoggedIn
-              ? authedPages.map((page) => (
-                  <NavLinkComponent key={page.url} {...page} />
-                ))
+              ? authedPages.map((page) =>
+                  page.url === ROUTES.LOGOUT ? (
+                    <NavLinkComponent
+                      key={page.url}
+                      {...page}
+                      onClick={logoutClick}
+                    />
+                  ) : (
+                    <NavLinkComponent key={page.url} {...page} />
+                  )
+                )
               : notAuthPages.map((page) => (
                   <NavLinkComponent key={page.url} {...page} />
                 ))}
