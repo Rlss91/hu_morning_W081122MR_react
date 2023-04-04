@@ -1,8 +1,19 @@
 import { NavLink } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-const NavLinkComponent = ({ url, label, onClick }) => {
+
+/* <NavLinkComponent url="http://......" label="something" onClick={handleOnClick} className="red-back-ground" />
+   url, label, onClick, className
+
+  rest = {
+    onCLick,
+    className
+  }
+*/
+
+const NavLinkComponent = ({ url, label, ...rest }) => {
   return (
-    <NavLink to={url} onClick={onClick}>
+    // <NavLink to={url} onClick={onClick} className={className}>
+    <NavLink to={url} {...rest}>
       {({ isActive }) => (
         <Typography
           sx={{
