@@ -12,6 +12,9 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import ProfilePage from "../pages/ProfilePage";
 import SuperProtectedRoute from "../components/SuperProtectedRoute";
 import LogoutPage from "../pages/LogoutPage";
+import NestedRoutePage from "../pages/NestedRoutePage";
+import NestedPage1 from "../pages/NestedRoutePage/NestedPage1";
+import NestedPage2 from "../pages/NestedRoutePage/NestedPage2";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -54,6 +57,10 @@ const Router = () => {
       <Route path="/usememo" element={<UseMemoPage />} />
       <Route path="/rp1" element={<RP1 />} />
       <Route path="/rp2" element={<RP2 />} />
+      <Route path="/nr" element={<NestedRoutePage />}>
+        <Route path="nestedpage1" element={<NestedPage1 />} />
+        <Route path="nestedpage2" element={<NestedPage2 />} />
+      </Route>
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );
