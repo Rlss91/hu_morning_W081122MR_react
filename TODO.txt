@@ -1,0 +1,11 @@
+server: 
+    v1) need to add fields to register 
+    v2) need to add fields to card 
+    3) fix edit profile
+    4) delete users
+    5) change biz number
+
+Ask:
+    1) sandbox for admin?
+    2) not registered user press on phone icon, what will happens next
+    3) react practice
