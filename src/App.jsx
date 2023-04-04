@@ -4,6 +4,7 @@ import {
   ThemeProvider,
   createTheme,
   CssBaseline,
+  CircularProgress,
 } from "@mui/material";
 
 /* toast */
@@ -29,9 +30,13 @@ const dark = {
 };
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const loggedIn = useLoggedIn();
   useEffect(() => {
-    loggedIn();
+    (async () => {
+      await loggedIn();
+      setIsLoading(false);
+    })();
   }, []);
 
   const isDarkTheme = useSelector(
@@ -56,9 +61,7 @@ function App() {
         <header>
           <MuiNavbar />
         </header>
-        <main>
-          <Router />
-        </main>
+        <main>{isLoading ? <CircularProgress /> : <Router />}</main>
         <footer></footer>
       </Container>
     </ThemeProvider>
