@@ -15,6 +15,7 @@ import LogoutPage from "../pages/LogoutPage";
 import NestedRoutePage from "../pages/NestedRoutePage";
 import NestedPage1 from "../pages/NestedRoutePage/NestedPage1";
 import NestedPage2 from "../pages/NestedRoutePage/NestedPage2";
+import MenuPage from "../pages/MenuPage";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -61,6 +62,7 @@ const Router = () => {
         <Route path="nestedpage1" element={<NestedPage1 />} />
         <Route path="nestedpage2" element={<NestedPage2 />} />
       </Route>
+      <Route path="/menu-test" element={<MenuPage />} />
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );
