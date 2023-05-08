@@ -19,6 +19,7 @@ import MenuPage from "../pages/MenuPage";
 import RRDPage1 from "../pages/RRDPage1";
 import RRDPage2 from "../pages/RRDPage2";
 import ProtectedRouteState from "../guard/ProtectedRouteState";
+import RegisterPage2 from "../pages/RegisterPage2/RegisterPage2";
 
 //element={<ProtectedRoute element={<LogoutPage />} />}
 
@@ -28,6 +29,7 @@ const Router = () => {
       <Route path={ROUTES.HOME} element={<HomePage />} />
       <Route path={ROUTES.FAKEHOME} element={<Navigate to={ROUTES.HOME} />} />
       <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+      <Route path="/register2" element={<RegisterPage2 />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route
         path={ROUTES.LOGOUT}
